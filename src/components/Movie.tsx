@@ -1,5 +1,5 @@
 import  { FC } from "react";
-import { Movie } from "./MoviesList";
+import { Movie } from "../app/moviesSlice";
 
 interface MovieCardProps {
   movie: Movie;
