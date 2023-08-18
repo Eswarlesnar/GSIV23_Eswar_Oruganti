@@ -1,5 +1,6 @@
 import  { FC } from "react";
 import { Movie } from "../app/moviesSlice";
+import { useNavigate } from "react-router-dom";
 
 interface MovieCardProps {
   movie: Movie;
@@ -8,9 +9,16 @@ interface MovieCardProps {
 const MovieCard: FC<MovieCardProps> = ({ movie }) => { 
   const baseImageUrl = "https://image.tmdb.org/t/p/w500"; // Base URL for images
   const moviePosterUrl = `${baseImageUrl}${movie.poster_path}`
+  const navigate = useNavigate()
+
+
+  const handleNavigate:  React.MouseEventHandler<HTMLDivElement>= (e) => {
+     e.preventDefault()
+     navigate(`/details/${movie.id}`)
+  }
 
   return (
-    <div className="movie-card" key={movie.id}>
+    <div className="movie-card"  onClick = {handleNavigate}>
       <div className="card-wrapper">
         <figure>
           <img src= {moviePosterUrl} alt={movie.title}  loading="lazy"/>

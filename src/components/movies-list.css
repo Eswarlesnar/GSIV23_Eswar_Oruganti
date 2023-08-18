@@ -24,6 +24,7 @@
     padding-inline: 24px;
     grid-template-columns: repeat(auto-fill, minmax(260px, 280px));
     gap: 24px;
+    justify-content: center;
 }
 
 .movie-card {
@@ -34,6 +35,7 @@
     transform-origin: center;
     transition: all 0.4s ease-in-out;
     overflow: hidden;
+    cursor : pointer;
 }
 
 .card-body {
