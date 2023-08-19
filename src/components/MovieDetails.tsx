@@ -80,7 +80,7 @@ const MovieDetails:FC = () => {
 
     return <div className="movie-details-container">
        <div className="details-wrapper">
-         <div>
+         <div className="image-wrapper">
             <figure>
                 <img  src = {moviePosterUrl}  alt = {movieDetails.title}/>
             </figure>

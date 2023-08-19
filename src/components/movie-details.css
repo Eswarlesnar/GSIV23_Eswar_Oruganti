@@ -4,26 +4,36 @@
     width :95%;
     margin-inline : auto;
     overflow: hidden;
+  
 }
 
 .details-wrapper {
-   display: flex;
-   gap :30px;
+   display: grid;
+   gap :10px;
+   grid-template-columns: 300px auto;
    border-radius: 16px;
    overflow: hidden;
    background : white ;
+}
+
+.image-wrapper {
+    position: relative;
 }
 
 .details-wrapper figure {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    height : 100%;
-    aspect-ratio: 10/3;
+    aspect-ratio: 10/9;
 }
 
 .details-wrapper figure img {
-    object-fit: cover;
+    position: absolute;
+	height: 300px;
+	width: 300px;
+	top: 0;
+	left: 0;
+	transition: transform 0.2s ease;
 }
 
 
@@ -44,8 +54,21 @@
 }
 
 .details-content {  
+    justify-self: start;
     height : 300px;
     display: grid;
     align-items: center;
     grid-template-rows: 1fr 1fr 1fr 2fr;
+    padding : 0px 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .movie-details-container{
+        height: auto;
+    }
+    .details-wrapper{
+       display : grid ; 
+       grid-template-columns: 1fr;
+       grid-template-rows: 300px auto;
+    }
 }
