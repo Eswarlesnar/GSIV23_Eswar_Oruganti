@@ -1,0 +1,51 @@
+.movie-details-container{
+    margin-top :50px;
+    height : 300px; 
+    width :95%;
+    margin-inline : auto;
+    overflow: hidden;
+}
+
+.details-wrapper {
+   display: flex;
+   gap :30px;
+   border-radius: 16px;
+   overflow: hidden;
+   background : white ;
+}
+
+.details-wrapper figure {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height : 100%;
+    aspect-ratio: 10/3;
+}
+
+.details-wrapper figure img {
+    object-fit: cover;
+}
+
+
+.details-wrapper .title {
+    display: flex;
+    gap :5px;
+    align-items: center;
+}
+
+.title h2{
+    margin : 0
+}
+
+.title span {
+    color : gray;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.details-content {  
+    height : 300px;
+    display: grid;
+    align-items: center;
+    grid-template-rows: 1fr 1fr 1fr 2fr;
+}

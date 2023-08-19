@@ -42,14 +42,14 @@
     padding : 18px;
 }
 
-figure {
+.movie-card figure {
     margin: 0;
     padding: 0;
     aspect-ratio: 16/13;
     overflow: hidden;
 }
 
-figure img {
+.movie-card figure img {
     max-width: 100%;
     transform-origin: center;
     transform: scale(var(--img-scale));

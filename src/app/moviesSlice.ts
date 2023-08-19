@@ -1,6 +1,6 @@
 // src/features/movies/moviesSlice.ts
-import { createSlice, PayloadAction , createAsyncThunk } from '@reduxjs/toolkit';
-import {createSelector} from "reselect"
+import { createSlice, PayloadAction , createAsyncThunk  , createSelector    } from '@reduxjs/toolkit';
+// import {createSelector} from "reselect"
 import { RootState } from './store';
 
 export interface Movie {
@@ -10,6 +10,7 @@ export interface Movie {
   vote_average: number;
   poster_path: string;  
   release_date : string;
+  runtime : number
 }
 
 interface MoviesState {
@@ -26,7 +27,7 @@ const initialState: MoviesState = {
   error: null,
 };
 
-interface RequestOptions {
+export interface RequestOptions {
     method : string,
     headers : {
        [key : string] : string
@@ -100,6 +101,13 @@ export const selectSortedMovies = createSelector(selectMovies  , (movies) => {
 
    return sortedMovies
 })
+
+export const makeSelectMovieById = (id : string) => 
+   createSelector(selectMovies , (movies) => {
+        return movies.find(movie => movie.id == id)
+})
+
+// export const selectSingleMovie = createSelector()
 
 
 export default moviesSlice.reducer;
