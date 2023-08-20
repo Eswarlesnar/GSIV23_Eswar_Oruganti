@@ -50,3 +50,40 @@
     width : 30px;
     height : 30px;
 }
+
+
+@media screen and (max-width: 900px) {
+    .search-bar {
+        margin-left : 65px;
+    }
+    .search-bar input[type="text"] {
+        width: 300px;
+    }
+    
+}
+
+
+@media screen and (max-width: 700px) {
+    .search-bar {
+        margin-left : 65px;
+    }
+    .search-bar input[type="text"] {
+        width: 200px;
+    }
+    
+}
+
+@media screen and (max-width: 600px) {
+    .search-bar {
+        margin-left : 100px;
+    }
+    .search-bar input[type="text"] {
+        width: 150px;
+    }
+    .logo{
+         left : 15px;
+    }  
+}
+  
+  
+  
