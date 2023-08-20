@@ -1,10 +1,9 @@
 .movie-details-container{
     margin-top :50px;
-    /* height : 400px;  */
+     /* height : 400px;  */
     width :95%;
     margin-inline : auto;
     overflow: hidden;
-  
 }
 
 .details-wrapper {

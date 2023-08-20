@@ -1,5 +1,6 @@
-import  { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import LoadingSpinner from "./Loader";
 import { Movie, RequestOptions } from "../app/moviesSlice";
 import "./movie-details.css";
 
@@ -20,6 +21,7 @@ const options: RequestOptions = {
   },
 }; 
 
+
 const MovieDetails: FC = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState<Movie>({
@@ -31,6 +33,7 @@ const MovieDetails: FC = () => {
     title: "",
     vote_average: 0,
   });
+  const [loading, setLoading] = useState(false);
   const [castDetails, setCastDetails] = useState<CastDetail[]>([]);
 
   const movieDetailsURL = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
@@ -38,18 +41,24 @@ const MovieDetails: FC = () => {
   const baseImageUrl = "https://image.tmdb.org/t/p/w500"; // Base URL for images
   const moviePosterUrl = `${baseImageUrl}${movieDetails.poster_path}`;
 
-
-  const fetchCastDetails = useCallback( async () => {
+  const fetchCastDetails = useCallback(async () => {
     const response = await fetch(castDetailsURL, options);
     const data = await response.json();
     setCastDetails(data.cast);
-  } , [castDetailsURL]);
+  }, [castDetailsURL]);
 
   const fetchMovieDetails = useCallback(async () => {
     const response = await fetch(movieDetailsURL, options);
     const data = await response.json();
     setMovieDetails(data);
-  },[movieDetailsURL]);
+    setLoading(false)
+  }, [movieDetailsURL]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchMovieDetails();
+    fetchCastDetails();
+  }, [fetchCastDetails, fetchMovieDetails]);
 
   const topCast = castDetails
     .filter((cast) => cast.known_for_department === "Acting")
@@ -71,35 +80,34 @@ const MovieDetails: FC = () => {
 
   const castInfo = topCast.map((cast) => cast.name).join(", ");
 
-  useEffect(() => {
-    fetchMovieDetails();
-    fetchCastDetails();
-  }, [fetchCastDetails , fetchMovieDetails ]);
-
   return (
     <div className="movie-details-container">
-      <div className="details-wrapper">
-        <div className="image-wrapper">
-          <figure>
-            <img src={moviePosterUrl} alt={movieDetails.title} />
-          </figure>
+      {loading ? (
+         <LoadingSpinner />
+      ) : (
+        <div className="details-wrapper">
+          <div className="image-wrapper">
+            <figure>
+              <img src={moviePosterUrl} alt={movieDetails.title} />
+            </figure>
+          </div>
+          <div className="details-content">
+            <div className="title">
+              <h2>{movieDetails.title}</h2>
+              <span className="movie-rating">
+                ({movieDetails.vote_average})
+              </span>
+            </div>
+            <div>{movieInfo}</div>
+            <div>
+              <span className="cast-info"> Cast : {castInfo}</span>
+            </div>
+            <div>
+              <p> Description : {movieDetails.overview}</p>
+            </div>
+          </div>
         </div>
-        <div className="details-content">
-          <div className="title">
-            <h2>{movieDetails.title}</h2>
-            <span className="movie-rating">
-              ({movieDetails.vote_average})
-            </span>
-          </div>
-          <div>{movieInfo}</div>
-          <div>
-            <span className="cast-info"> Cast : {castInfo}</span>
-          </div>
-          <div>
-            <p> Description : {movieDetails.overview}</p>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
