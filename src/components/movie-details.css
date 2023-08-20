@@ -1,6 +1,6 @@
 .movie-details-container{
     margin-top :50px;
-    height : 300px; 
+    /* height : 400px;  */
     width :95%;
     margin-inline : auto;
     overflow: hidden;
@@ -11,6 +11,7 @@
    display: grid;
    gap :10px;
    grid-template-columns: 300px auto;
+   grid-template-rows:  350px;
    border-radius: 16px;
    overflow: hidden;
    background : white ;
@@ -29,7 +30,7 @@
 
 .details-wrapper figure img {
     position: absolute;
-	height: 300px;
+	height: 350px;
 	width: 300px;
 	top: 0;
 	left: 0;

@@ -18,6 +18,7 @@ interface MoviesState {
   currentPage: number;
   isLoading: boolean;
   error: string | null;
+  filter : string
 }
 
 const initialState: MoviesState = {
@@ -25,6 +26,7 @@ const initialState: MoviesState = {
   currentPage: 1,
   isLoading: false,
   error: null,
+  filter : ""
 };
 
 export interface RequestOptions {
@@ -64,6 +66,9 @@ const moviesSlice = createSlice({
   reducers: {
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
+    } , 
+    setFilter(state , action : PayloadAction<string>) { 
+       state.filter = action.payload
     }
   },
   extraReducers : (builder)=> {
@@ -86,13 +91,17 @@ const moviesSlice = createSlice({
 
 export const {
   setCurrentPage,
+  setFilter
 } = moviesSlice.actions;  
 
 const selectMoviesState = (state : RootState) => state.movies;
-const selectMovies = (state :RootState) => selectMoviesState(state).movies;
+export const selectMovies = (state :RootState) => selectMoviesState(state).movies;
+export const selectFitleredMovies = (state : RootState) => {
+   return  [...state.movies.movies].filter(movie => movie.title.toLowerCase().includes(state.movies.filter.toLowerCase()))
+}
 
 
-export const selectSortedMovies = createSelector(selectMovies  , (movies) => {
+export const selectSortedMovies = createSelector(selectFitleredMovies  , (movies) => {
     const sortedMovies = [...movies].sort( (a , b) => {
         const dateA = new Date(a.release_date)
         const dateB = new Date(b.release_date)
@@ -102,12 +111,7 @@ export const selectSortedMovies = createSelector(selectMovies  , (movies) => {
    return sortedMovies
 })
 
-export const makeSelectMovieById = (id : string) => 
-   createSelector(selectMovies , (movies) => {
-        return movies.find(movie => movie.id == id)
-})
 
-// export const selectSingleMovie = createSelector()
 
 
 export default moviesSlice.reducer;

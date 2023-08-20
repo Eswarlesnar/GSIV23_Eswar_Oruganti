@@ -12,7 +12,15 @@ interface CastDetail {
 
 const MovieDetails:FC = () => {
     const {id} = useParams()
-    const [movieDetails , setMovieDetails] = useState<Movie>({})
+    const [movieDetails , setMovieDetails] = useState<Movie>({
+      id : "0" , 
+      overview : '' , 
+      poster_path : "" , 
+      release_date : "" , 
+      runtime : 0 , 
+      title : "" , 
+      vote_average : 0
+    })
     const [castDetails , setCastDetails] = useState<CastDetail[]>([])
 
     const movieDetailsURL= `https://api.themoviedb.org/3/movie/${id}?language=en-US`
