@@ -15,7 +15,6 @@ export interface Movie {
 
 interface MoviesState {
   movies: Movie[];
-  currentPage: number;
   isLoading: boolean;
   error: string | null;
   filter : string
@@ -23,7 +22,6 @@ interface MoviesState {
 
 const initialState: MoviesState = {
   movies: [],
-  currentPage: 1,
   isLoading: false,
   error: null,
   filter : ""
@@ -38,9 +36,9 @@ export interface RequestOptions {
 
 
 
-export const fetchMovies = createAsyncThunk('movies/fetchMovies' ,async ( _ , {getState , rejectWithValue}) => {
-    const {movies} = getState() as { movies : MoviesState }   // dont know what this is found it in stackoverflow
-    const url = `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${movies.currentPage}`
+export const fetchMovies = createAsyncThunk('movies/fetchMovies' ,async (currentPage , {getState , rejectWithValue}) => {
+    // const {movies} = getState() as { movies : MoviesState }   // dont know what this is found it in stackoverflow
+    const url = `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${currentPage}`
     const token = import.meta.env.VITE_TMDB_BEARER
 
     const options : RequestOptions = {
@@ -64,9 +62,6 @@ const moviesSlice = createSlice({
   name: 'movies',
   initialState,
   reducers: {
-    setCurrentPage(state, action: PayloadAction<number>) {
-      state.currentPage = action.payload;
-    } , 
     setFilter(state , action : PayloadAction<string>) { 
        state.filter = action.payload
     }
@@ -90,7 +85,6 @@ const moviesSlice = createSlice({
 });
 
 export const {
-  setCurrentPage,
   setFilter
 } = moviesSlice.actions;  
 

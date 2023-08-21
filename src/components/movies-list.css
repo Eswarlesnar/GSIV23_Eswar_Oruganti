@@ -98,3 +98,29 @@
     --link-icon-translate: 0;
     --link-icon-opacity: 1;
 }
+
+.pagination {
+    background : white;
+    padding : 30px;
+    display: flex;
+    gap:30px;
+    list-style: none;
+    justify-content: center;
+}
+
+.page{
+    display: inline-block;
+    padding: 10px 10px;
+    background-color: #007bff; /* Button color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .page:hover {
+    background-color: #0056b3; /* Hover color */
+  }
+  
